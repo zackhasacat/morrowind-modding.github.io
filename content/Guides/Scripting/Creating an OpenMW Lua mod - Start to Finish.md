@@ -14,7 +14,6 @@ Let’s start off with a development environment. I like to have a folder with a
 
 ![
 ](Assets/Guides/ZHAC_LuaGuide/clip_image001.png)
-![[clip_image008.png]]
 Now, I’ll open this folder in visual studio code. Before we go any further, make sure you have the lua extension installed. You can search for it over on the extensions tab.
 
 ![
