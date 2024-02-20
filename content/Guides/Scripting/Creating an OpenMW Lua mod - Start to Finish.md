@@ -80,7 +80,7 @@ We will check if the record ID matches the object we want. Note, there is anothe
 
 We also want to check if the cell matches.
 
-I only want this to happen in the Balmora, Guild of Mages cell, so let’s add a check here. If we go back to our [gameObject document](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html), we’ll see the cell property. If we click that, then click #cell, it will take us to the [definition for that object.](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html) Here we find the name property, which is all we care about.
+I only want this to happen in the Balmora, Guild of Mages cell, so let’s add a check here. If we go back to our [gameObject document](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html##(GameObject)), we’ll see the cell property. If we click that, then click #cell, it will take us to the [definition for that object.](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html##(Cell)) Here we find the name property, which is all we care about.
 
 So, we check if that record ID matches, and that the cell name matches, and if it does, we’ll want to create our button, by calling the empty function from before. Make sure that you pass “obj” in the function.
 
@@ -94,16 +94,16 @@ To place the button, we’ll need to add a require for world at the top of the f
 ![
 ](Assets/Guides/ZHAC_LuaGuide/clip_image010.png)
 
-To create the button, we’ll use the [world.createObject()](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_world.html) function. As it says, the parameter needs to be the record ID, which will be “ex_gg_gateswitch_01”. There is another parameter for count, but it only matters when you are creating a stack.
+To create the button, we’ll use the [world.createObject()](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_world.html##(world).createObject) function. As it says, the parameter needs to be the record ID, which will be “ex_gg_gateswitch_01”. There is another parameter for count, but it only matters when you are creating a stack.
 
 We’ll create the button and pass it to a variable. Now, the object is created, but it isn’t anywhere that the player can reach. We’ll need to move it somewhere it can be used, specifically to the chair.
 
 ![ program
 ](Assets/Guides/ZHAC_LuaGuide/clip_image011.png)
 
-We can use [teleport](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html), since it is a property of GameObject. We’ll pass the variables provided by the chair for this. Cell, position, and rotation.
+We can use [teleport](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html##(GameObject).teleport), since it is a property of GameObject. We’ll pass the variables provided by the chair for this. Cell, position, and rotation.
 
-In this case, cell is a [Cell](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html) object, and position is a [vector3](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_util.html).
+In this case, cell is a [Cell](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html##(Cell)) object, and position is a [vector3](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_util.html##(util).vector3).
 
 If you wanted to specify your own position and cell, you could do so like this.
 
@@ -117,7 +117,7 @@ And for position, you can create one from the util package, just util.vector3(1,
 
 But right now, we’ll just use the provided cell, location, and rotation.
 
-Now, we’ll call remove on the chair object, which deletes it. It’s important that we do this after teleporting the object. It’s also important that you do chair:remove(), with the colon, not a dot, as explained by [this page.](https://www.lua.org/pil/16.html) We’ll also update the call to placeButton to provide the [position](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html), [rotation](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html), and [cell](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html) of the chair.
+Now, we’ll call remove on the chair object, which deletes it. It’s important that we do this after teleporting the object. It’s also important that you do chair:remove(), with the colon, not a dot, as explained by [this page.](https://www.lua.org/pil/16.html) We’ll also update the call to placeButton to provide the [position](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html##(GameObject).position), [rotation](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html##(GameObject).rotation), and [cell](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_core.html##(GameObject).cell) of the chair.
 
 ![
 ](Assets/Guides/ZHAC_LuaGuide/clip_image013.png)
@@ -163,7 +163,7 @@ Now, we’ll do a lot of work from before. We need to check that the record ID a
 ![ program
 ](Assets/Guides/ZHAC_LuaGuide/clip_image019.png)
 
-But hold on, we don’t want to add the gold unless they’re a part of the Mage’s Guild. If we go over the [types](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_types.html) package, under NPC, we’ll find [getFactionRank](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_types.html), which can be used to check if the player is in the faction.
+But hold on, we don’t want to add the gold unless they’re a part of the Mage’s Guild. If we go over the [types](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_types.html) package, under NPC, we’ll find [getFactionRank](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_types.html##(NPC).getFactionRank), which can be used to check if the player is in the faction.
 
 Now, let’s take a moment to talk about nil checks. If the player is not in this faction, it will return either nil, or 0, depending on their version. Any time you are using a nested table, and it has the possibility of containing nil values, you should check each value is not nil before continuing.
 
@@ -194,7 +194,7 @@ First, put in the require for the ui package we couldn’t use before.
 
 Then, return the eventhandlers table, containing a function with the same name as the event before.
 
-In that function, use the ui.showMessage() function, passing the message to it.
+In that function, use the [ui.showMessage()](https://openmw.readthedocs.io/en/latest/reference/lua-scripting/openmw_ui.html##(ui).showMessage) function, passing the message to it.
 
 ![
 ](Assets/Guides/ZHAC_LuaGuide/clip_image022.png)
@@ -223,6 +223,6 @@ We can see line 19, and we just need to provide the “mages guild” faction na
 
 If you didn’t close your game before, you don’t need to. You can open the console, and type in “reloadlua”, and it will reload the file, provided you remembered to save it.
 
-Give it a shot, and the button should react according to your rank!
+Give it a shot, and the button should react according to your membership!
 
 Now, see if you can make your own script. If you need help with that, come visit the [OpenMW Discord](https://discord.gg/YegsVV3aRb), and ask in the #lua channel! And, let me know what tutorials you’d like next.
